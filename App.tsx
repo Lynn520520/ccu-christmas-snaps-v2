@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { PolaroidCamera } from './components/PolaroidCamera';
 import { FrameDesign } from './components/FrameDesign';
 import { DraggablePhoto } from './components/DraggablePhoto';
 import { FrameStyle, PhotoData } from './types';
-import { Check, User, Download, Sparkles, Camera, Images, Trash2, Hand } from 'lucide-react';
+import { Check, User, Download, Sparkles, Camera, Image, Hand } from 'lucide-react';
 import { generatePolaroidCanvas } from './utils/polaroidGenerator';
 import { saveFile } from './utils/downloadUtils';
 import JSZip from 'jszip';
@@ -124,12 +124,6 @@ export default function App() {
 
   const deletePhoto = (id: string) => {
     setPhotos(prev => prev.filter(p => p.id !== id));
-  };
-
-  const clearAllPhotos = () => {
-    if (window.confirm('Are you sure you want to clear all photos?')) {
-      setPhotos([]);
-    }
   };
 
   const bringToFront = (id: string) => {
@@ -294,16 +288,6 @@ export default function App() {
              </button>
 
              {photos.length > 0 && (
-               <>
-                 <button
-                   onClick={clearAllPhotos}
-                   className="bg-white/80 hover:bg-red-50 text-red-600 shadow-lg px-3 py-2 md:px-4 md:py-3 rounded-full font-bold flex items-center gap-2 transition-all transform hover:scale-105 active:scale-95 border border-red-100"
-                   title="Clear All"
-                 >
-                    <Trash2 size={16} />
-                    <span className="hidden md:inline text-xs">Clear</span>
-                 </button>
-
                  <button
                    onClick={handleBatchDownload}
                    disabled={isZipping}
@@ -313,7 +297,6 @@ export default function App() {
                     <span className="text-xs md:text-sm">{isZipping ? '...' : 'Download All'}</span>
                     <span className="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-mono min-w-[20px] text-center">{photos.length}</span>
                  </button>
-               </>
              )}
          </div>
 
@@ -361,7 +344,7 @@ export default function App() {
              className={`flex flex-col items-center justify-center py-3 px-6 transition-colors duration-200 ${activeTab === 'canvas' ? 'text-indigo-600' : 'text-slate-400 hover:text-slate-600'}`}
           >
              <div className="relative">
-                <Images size={24} className={activeTab === 'canvas' ? 'fill-current' : ''} />
+                <Image size={24} className={activeTab === 'canvas' ? 'fill-current' : ''} />
                 {photos.length > 0 && (
                     <span className="absolute -top-1 -right-2 bg-red-500 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-sm animate-in zoom-in">
                         {photos.length}
